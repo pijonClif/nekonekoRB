@@ -1,7 +1,6 @@
 # NekoNekoRB
 
 Tiny desktop pet + Pomodoro timer.
-
 Toy project to experiment with Golang & raylib-go.
 
 ## Features
