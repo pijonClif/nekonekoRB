@@ -1,18 +1,18 @@
 # NekoNekoRB
 
-Tiny desktop pet + Pomodoro timer.
+Tiny desktop pet + Pomodoro timer.\
 Toy project to experiment with Golang & raylib-go.
 
-## Features
+### Features
 - **Desktop pet**: idle, sleep, drag, and fall animations
 - **Pomodoro overlay**: simple work/break cycle display
 - **Frameless, always-on-top, transparent window**
 
-## Run (Windows)
+### Run (Windows)
 - Double-click `bin/NekoNekoRB.exe`.
 - Keep the working directory as `bin/` so `assets/` can be found.
 
-## Controls
+### Controls
 - **Left click**: toggle idle/sleep
 - **Drag**: hold left click and move to reposition
 - **Right click**: start Pomodoro
