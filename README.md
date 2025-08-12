@@ -1,4 +1,4 @@
-# NekoNekoRB <img src="bin/assets/icon.png" alt="NekoNekoRB Cat" align="right" width="64" height="64">
+# NekoNekoRB <img src="bin/assets/haloCat.png" alt="NekoNekoRB Cat" align="right" width="64" height="64">
 
 Tiny desktop pet + Pomodoro timer.\
 Toy project to experiment with Golang & raylib-go.
