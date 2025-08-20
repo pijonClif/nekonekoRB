@@ -4,7 +4,6 @@ import (
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
-// CatState represents the current state of the cat
 type NekoState int
 
 const (
@@ -14,13 +13,22 @@ const (
 	NekoDragging
 )
 
-// neko manages the cat sprite and its rendering
+const (
+	clickThreshold = 5.0
+	fallSpeed      = 7.0
+)
+
+// neko struct -> sprites n rendering
 type Neko struct {
 	textures     []rl.Texture2D
 	currentState NekoState
 	frame        int32
 	frameSpeed   int
 	animTimer    float32
+
+	clickStart rl.Vector2
+	isDragging bool
+	isFalling  bool
 }
 
 func InitNeko() *Neko {
@@ -73,7 +81,7 @@ func (c *Neko) ToggleIdleSleep() {
 }
 
 func (c *Neko) DrawNeko(screenWidth, screenHeight int32) {
-	//neko state => tex
+	//neko state -> tex
 	textureIndex := 0
 	switch c.currentState {
 	case NekoIdle:
@@ -99,4 +107,64 @@ func (c *Neko) DrawNeko(screenWidth, screenHeight int32) {
 	)
 
 	rl.DrawTexturePro(drawTexture, srcRect, dstRect, rl.NewVector2(0, 0), 0, rl.White)
+}
+
+//---cat shit---
+
+// click/drag
+func (c *Neko) ClickNDrag() {
+	mouse := rl.GetMousePosition()
+	windowPos := rl.GetWindowPosition()
+
+	//e
+	if rl.IsMouseButtonPressed(rl.MouseLeftButton) {
+		c.clickStart = mouse
+		c.isDragging = false
+	}
+
+	//drag to where
+	if rl.IsMouseButtonDown(rl.MouseLeftButton) {
+		moveDist := rl.Vector2Length(rl.Vector2Subtract(mouse, c.clickStart))
+		if moveDist >= clickThreshold {
+			c.isDragging = true
+		}
+		if c.isDragging {
+			newX := int(mouse.X) - int(c.clickStart.X) + int(windowPos.X)
+			newY := int(mouse.Y) - int(c.clickStart.Y) + int(windowPos.Y)
+			rl.SetWindowPosition(newX, newY)
+		}
+	}
+
+	//click not drag
+	if rl.IsMouseButtonReleased(rl.MouseLeftButton) {
+		moveDist := rl.Vector2Length(rl.Vector2Subtract(mouse, c.clickStart))
+		if !c.isDragging && moveDist < clickThreshold {
+			c.ToggleIdleSleep()
+		}
+		c.isDragging = false
+	}
+}
+
+// fall how
+func (c *Neko) HandleFall() {
+	winPos := rl.GetWindowPosition()
+	monitorHeight := rl.GetMonitorHeight(0)
+	c.isFalling = false
+	if winPos.Y+float32(screenHeight) < float32(monitorHeight) {
+		rl.SetWindowPosition(int(winPos.X), int(winPos.Y+fallSpeed))
+		c.isFalling = true
+	}
+}
+
+// fall/drag
+func (c *Neko) FallNDrag() {
+	if c.isDragging {
+		c.SetState(NekoDragging)
+	} else if c.isFalling {
+		c.SetState(NekoFalling)
+	} else { //idle when neitherr
+		if c.GetState() == NekoFalling {
+			c.SetState(NekoIdle)
+		}
+	}
 }

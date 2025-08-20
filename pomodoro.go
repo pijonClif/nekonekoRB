@@ -16,7 +16,7 @@ const (
 	Break2
 	Work3
 	FinalRest
-	PhaseDone // not shown
+	PhaseDone
 )
 
 var (
