@@ -1,26 +1,29 @@
-# NekoNekoRB <img src="assets/haloCat.png" alt="NekoNekoRB Cat" align="right" width="64" height="64">
+# NekoNekoRB!! <img src="assets/haloCat.png" alt="NekoNekoRB Cat" align="right" width="64" height="64">
 
-Tiny desktop pet + Pomodoro timer.\
-Toy project to experiment with Golang & raylib-go.
+Tiny desktop pet + pomodoro timer.  
+Made with Go and raylib-go as a fun little side project.  
+
+---
 
 ## Features
-- **Desktop pet**: idle, sleep, drag, and fall animations
-- **Pomodoro overlay**: simple work/break cycle display
-- **Frameless, always-on-top, transparent window**
+- Animated pet (idle, sleep, drag, fall)  
+- Always-on-top transparent window  
+- Simple Pomodoro cycle display  
 
-## Future Updates
-- **Dynamic pomodoro clock**: pause, reset, and customize work/break durations
-- **Settings tab/window**: configure timer durations and pet appearance
+---
 
-## Run (Windows)
-- Double-click `bin/NekoNekoRB.exe`.
-- Keep the working directory as `bin/` so `assets/` can be found.
+## Coming Soon
+- Better (cuter) sprites  
+- Proper Pomodoro controls (pause, reset, customize)  
 
-## Controls
-- **Left click**: toggle idle/sleep
-- **Drag**: hold left click and move to reposition
-- **Right click**: start Pomodoro
-- **Esc**: quit
+---
 
-Requirements: Go 1.24+, Windows.\
-Uses [`github.com/gen2brain/raylib-go/raylib`](https://github.com/gen2brain/raylib-go).
+## Notes
+This is an early test release using placeholder sprites.  
+Expect things to break, change, or look silly.  
+
+---
+
+## About
+Created by *pijonClif* — experimenting with Go + raylib-go.  
+
