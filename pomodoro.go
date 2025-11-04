@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"time"
 
@@ -28,8 +29,11 @@ var (
 	screenHeight  = 128
 )
 
+//go:embed assets/pomodoro.png
+var pomoTex []byte
+
 func InitPomo() {
-	pomoTexture = rl.LoadTexture("assets/pomodoro.png")
+	pomoTexture = LoadTextureFrmBytes(pomoTex)
 }
 
 func UnloadPomo() {

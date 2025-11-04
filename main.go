@@ -3,6 +3,8 @@
 package main
 
 import (
+	_ "embed"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -61,7 +63,7 @@ func main() {
 
 		neko.UpdateNeko()
 
-		// Movement and animation handled by Neko methods
+		//nekoko methods
 		neko.ClickNDrag()
 		neko.HandleFall()
 		neko.FallNDrag()

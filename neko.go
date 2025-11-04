@@ -1,6 +1,8 @@
 package main
 
 import (
+	_ "embed"
+
 	rl "github.com/gen2brain/raylib-go/raylib"
 )
 
@@ -18,6 +20,18 @@ const (
 	fallSpeed      = 7.0
 )
 
+//go:embed assets/catIdle.png
+var catIdle []byte
+
+//go:embed assets/catSleep.png
+var catSleep []byte
+
+//go:embed assets/catDown.png
+var catDown []byte
+
+//go:embed assets/catDrag.png
+var catDrag []byte
+
 // neko struct -> sprites n rendering
 type Neko struct {
 	textures     []rl.Texture2D
@@ -33,10 +47,10 @@ type Neko struct {
 
 func InitNeko() *Neko {
 	textures := []rl.Texture2D{
-		rl.LoadTexture("assets/catIdle.png"),
-		rl.LoadTexture("assets/catSleep.png"),
-		rl.LoadTexture("assets/catDown.png"),
-		rl.LoadTexture("assets/catDrag.png"),
+		LoadTextureFrmBytes(catIdle),
+		LoadTextureFrmBytes(catSleep),
+		LoadTextureFrmBytes(catDown),
+		LoadTextureFrmBytes(catDrag),
 	}
 
 	return &Neko{
