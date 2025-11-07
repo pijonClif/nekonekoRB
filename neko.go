@@ -17,7 +17,7 @@ const (
 
 const (
 	clickThreshold = 5.0
-	fallSpeed      = 7.0
+	fallSpeed      = 256.0
 )
 
 //go:embed assets/catIdle.png
@@ -69,8 +69,9 @@ func (c *Neko) UnloadNeko() {
 }
 
 // neko animation
-func (c *Neko) UpdateNeko() {
-	c.animTimer += rl.GetFrameTime()
+func (c *Neko) UpdateNeko(deltaTime float32) {
+	c.animTimer += deltaTime
+
 	if c.animTimer >= 1.0/float32(c.frameSpeed) {
 		c.animTimer -= 1.0 / float32(c.frameSpeed)
 		c.frame = (c.frame + 1) % 4
@@ -126,7 +127,7 @@ func (c *Neko) DrawNeko(screenWidth, screenHeight int32) {
 //---cat shit---
 
 // click/drag
-func (c *Neko) ClickNDrag() {
+func (c *Neko) ClickNDrag(deltaTime float32) {
 	mouse := rl.GetMousePosition()
 	windowPos := rl.GetWindowPosition()
 
@@ -143,9 +144,11 @@ func (c *Neko) ClickNDrag() {
 			c.isDragging = true
 		}
 		if c.isDragging {
-			newX := int(mouse.X) - int(c.clickStart.X) + int(windowPos.X)
-			newY := int(mouse.Y) - int(c.clickStart.Y) + int(windowPos.Y)
-			rl.SetWindowPosition(newX, newY)
+			deltaX := mouse.X - c.clickStart.X
+			deltaY := mouse.Y - c.clickStart.Y
+			newX := windowPos.X + deltaX*deltaTime*30
+			newY := windowPos.Y + deltaY*deltaTime*30
+			rl.SetWindowPosition(int(newX), int(newY))
 		}
 	}
 
@@ -160,12 +163,13 @@ func (c *Neko) ClickNDrag() {
 }
 
 // fall how
-func (c *Neko) HandleFall() {
+func (c *Neko) HandleFall(deltaTime float32) {
 	winPos := rl.GetWindowPosition()
 	monitorHeight := rl.GetMonitorHeight(0)
 	c.isFalling = false
 	if winPos.Y+float32(screenHeight) < float32(monitorHeight) {
-		rl.SetWindowPosition(int(winPos.X), int(winPos.Y+fallSpeed))
+		fallDist := fallSpeed * deltaTime
+		rl.SetWindowPosition(int(winPos.X), int(winPos.Y+fallDist))
 		c.isFalling = true
 	}
 }

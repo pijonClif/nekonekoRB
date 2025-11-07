@@ -44,6 +44,8 @@ func main() {
 	rl.SetExitKey(0)
 	defer rl.CloseWindow()
 
+	rl.SetTargetFPS(60)
+
 	//inti cta and pomo
 	neko = InitNeko()
 	defer neko.UnloadNeko()
@@ -53,19 +55,29 @@ func main() {
 
 	for running {
 
-		//updatee
+		deltaTime := rl.GetFrameTime()
+		if deltaTime > 0.33 { //capped at 30fps yo
+			deltaTime = 0.33
+		}
+
 		update()
 
+		//reset pos
+		if rl.IsKeyDown(rl.KeyLeftControl) && rl.IsKeyPressed(rl.KeyO) {
+			rl.SetWindowPosition(0, 0)
+		}
+
+		//init pomo
 		if rl.IsMouseButtonPressed(rl.MouseRightButton) && !IsPomoActive() {
 			StartPomo()
 		}
 		UpdatePomo()
 
-		neko.UpdateNeko()
+		neko.UpdateNeko(deltaTime)
 
 		//nekoko methods
-		neko.ClickNDrag()
-		neko.HandleFall()
+		neko.ClickNDrag(deltaTime)
+		neko.HandleFall(deltaTime)
 		neko.FallNDrag()
 
 		render()
