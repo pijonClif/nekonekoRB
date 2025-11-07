@@ -4,8 +4,7 @@ Tiny desktop pet + pomodoro timer.
 Made with Go and raylib-go as a fun little side project.  
 
 
-### Features
----
+## Features
 \> Animated pet (idle, sleep, drag, fall)  
 \> Always-on-top transparent window  
 \> Simple Pomodoro cycle display  
@@ -16,12 +15,11 @@ Made with Go and raylib-go as a fun little side project.
 \> **Right click**: start Pomodoro\
 \> **Esc**: quit
 
-### Coming Soon
----
+## Coming Soon
 \> Better (cuter) sprites  
 \> Proper Pomodoro controls (pause, reset, customize)  
 
-### Notes
+## Notes
 This is an early test release using placeholder sprites.  
 Expect things to break, change, or look silly.
 
